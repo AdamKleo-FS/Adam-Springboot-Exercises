@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 public class Persona {
 
-    // Maybe include pattern nie/dni
     @NotNull(message="El DNI no puede ser nulo")
     @Pattern(
             regexp = "^[0-9]{8}[A-Z]$|^[XYZ][0-9]{7}[A-Z]$",

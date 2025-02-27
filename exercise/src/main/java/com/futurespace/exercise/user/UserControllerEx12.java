@@ -22,6 +22,7 @@ public class UserControllerEx12 {
     // Crea un usuario de prueba y lo devuelve como Persona.
     @GetMapping(path = "/{userId}")
     public ResponseEntity<Persona> getUser(@PathVariable String userId) {
+        // Crear la persona
         Persona user = new Persona(
                 "Y1234567A",
                 "Adam",
@@ -29,6 +30,8 @@ public class UserControllerEx12 {
                 "Kaawach",
                 LocalDate.of(2002, 9, 14),
                 "M");
+
+        // Devolver OKAY
         return ResponseEntity.ok(user);
     }
 
@@ -53,14 +56,19 @@ public class UserControllerEx12 {
             @RequestParam("fechaNacimiento") String fechaNacimiento,
             @RequestParam("sexo") String sexo) {
 
+        // Create a better date parser
         LocalDate birthdate = LocalDate.parse(fechaNacimiento);
+
+        // Crear la persona
         Persona user = new Persona(dni, nombre, apellido1, apellido2, birthdate, sexo);
         Persona createdUser = userService.createUser(user);
 
-        if (createdUser == null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
-    }
+        if (createdUser != null) {
+            // Devolver status OK si encontramos el usuario
+            return new ResponseEntity<>(user, HttpStatus.OK);
 
+        }
+        // Devolver status NOT FOUND si no se encuentra
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

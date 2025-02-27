@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Service
-public class UserService {
+public class UserService implements UserServiceInterface {
     private final Map<String, Persona> users = new HashMap<>();
     private final List<Persona> personas = new ArrayList<>();
 
@@ -24,6 +24,7 @@ public class UserService {
         personas.add(new Persona("X5678901J", "Miguel", "Andrés", "Navarro", LocalDate.of(2003, 4, 30), "M"));
     }
 
+    @Override
     public Persona getPersonaByDni(String dni) {
         return personas.stream()
                 .filter(persona -> persona.getDNI().equalsIgnoreCase(dni))
@@ -31,6 +32,7 @@ public class UserService {
                 .orElse(null);
     }
 
+    @Override
     public Persona updatePersona(String dni, Persona updatedPersona) {
         for (int i = 0; i < personas.size(); i++) {
             if (personas.get(i).getDNI().equalsIgnoreCase(dni)) {
@@ -41,6 +43,7 @@ public class UserService {
         return null;
     }
 
+    @Override
     public Persona deletePersona(String dni) {
         Iterator<Persona> iterator = personas.iterator();
         while (iterator.hasNext()) {
@@ -53,6 +56,7 @@ public class UserService {
         return null;
     }
 
+    @Override
     public Persona createUser(Persona persona) {
         if (users.containsKey(persona.getDNI())) {
             return null; // Handle conflict in controller

@@ -5,16 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.*;
 
 @RestController
 @RequestMapping("users")
 public class UserControllerEx12 {
 
+    private final UserServiceInterface userService;
 
-    private final UserService userService;
-
-    public UserControllerEx12(UserService userService) {
+    public UserControllerEx12(UserServiceInterface userService) {
         this.userService = userService;
     }
 

@@ -11,29 +11,29 @@ import java.util.*;
 @RequestMapping("users")
 public class UserControllerEx12 {
 
-    private Map<String, UserDetailsModel> users;
 
+    private final UserService userService;
 
+    public UserControllerEx12(UserService userService) {
+        this.userService = userService;
+    }
 
     /*******************************
      ********* Ejercicio 1 *********
      *******************************/
-
-    // Crea un usuario de prueba y lo devuelve como UserDetailsModel.
+    // Crea un usuario de prueba y lo devuelve como Persona.
     @GetMapping(path = "/{userId}")
-    public ResponseEntity<UserDetailsModel> getUser(@PathVariable String userId) {
-        UserDetailsModel user = new UserDetailsModel();
-        String uuid = UUID.randomUUID().toString();
-        user.setId(uuid);
-        user.setDNI("Y1234567A");
-        user.setFirstName("Adam");
-        user.setLastName("Kaawach");
-        user.setMiddleName("Farid");
-        user.setSex("Male");
-        user.setBirthdate(LocalDate.of(2002, 9, 14));
-
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<Persona> getUser(@PathVariable String userId) {
+        Persona user = new Persona(
+                "Y1234567A",
+                "Adam",
+                "Farid",
+                "Kaawach",
+                LocalDate.of(2002, 9, 14),
+                "M");
+        return ResponseEntity.ok(user);
     }
+
 
 
 
@@ -47,7 +47,7 @@ public class UserControllerEx12 {
      * Si no lo crea y almacena en el map.
      */
     @PostMapping(path = "envioFormulario")
-    public ResponseEntity<UserDetailsModel> createUser(
+    public ResponseEntity<Persona> createUser(
             @RequestParam("dni") String dni,
             @RequestParam("nombre") String nombre,
             @RequestParam("apellido1") String apellido1,
@@ -55,30 +55,14 @@ public class UserControllerEx12 {
             @RequestParam("fechaNacimiento") String fechaNacimiento,
             @RequestParam("sexo") String sexo) {
 
-        // Si el map usuarios no existe
-        if (users == null) users = new HashMap<>();
-
-        // si el usuario ya existe
-        if (users.containsKey(dni)) return new ResponseEntity<>(users.get(dni), HttpStatus.CONFLICT);
-
-        // Convertir la fecha de String a LocalDate (se espera el formato ISO: yyyy-MM-dd)
         LocalDate birthdate = LocalDate.parse(fechaNacimiento);
+        Persona user = new Persona(dni, nombre, apellido1, apellido2, birthdate, sexo);
+        Persona createdUser = userService.createUser(user);
 
-        // Crear y configurar el objeto con los datos recibidos
-        UserDetailsModel user = new UserDetailsModel();
-        user.setDNI(dni);
-        user.setFirstName(nombre);
-        user.setMiddleName(apellido1);
-        user.setLastName(apellido2);
-        user.setBirthdate(birthdate);
-        user.setSex(sexo);
-        String userId = UUID.randomUUID().toString();
-        user.setId(userId);
-
-        // Insertar usuario
-        users.put(dni, user);
-
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        if (createdUser == null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
 }

@@ -6,9 +6,14 @@ import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 
+
 public class UserDetailsModel {
 
     private String id;
+
+    // Maybe include pattern nie/dni
+    @NotNull(message="DNI cannot be null!")
+    private String DNI;
 
     @NotNull(message="First name cannot be null!")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "First name must contain only letters")
@@ -36,6 +41,14 @@ public class UserDetailsModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
     }
 
     public LocalDate getBirthdate() {

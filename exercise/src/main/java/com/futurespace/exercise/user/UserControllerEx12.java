@@ -57,7 +57,12 @@ public class UserControllerEx12 {
             @RequestParam("sexo") String sexo) {
 
         // Create a better date parser
-        LocalDate birthdate = LocalDate.parse(fechaNacimiento);
+        LocalDate birthdate;
+        try {
+            birthdate = LocalDate.parse(fechaNacimiento);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         // Crear la persona
         Persona user = new Persona(dni, nombre, apellido1, apellido2, birthdate, sexo);

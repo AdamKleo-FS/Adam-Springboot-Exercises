@@ -17,9 +17,9 @@ public class UserControllerEx3 {
         this.userService = userService;
     }
 
-    /*******************************
+    /********************************
      ********* GET (Step 1) *********
-     *******************************/
+     ********************************/
     @GetMapping("/{dni}")
     public ResponseEntity<Persona> getPersonaByDni(@PathVariable String dni) {
         Persona persona = userService.getPersonaByDni(dni);

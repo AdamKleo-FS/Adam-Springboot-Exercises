@@ -1,5 +1,7 @@
 package com.futurespace.exercise.user;
 
+import com.futurespace.exercise.exception.DuplicatePersonaException;
+import com.futurespace.exercise.exception.PersonaNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -40,7 +42,7 @@ public class UserService implements UserServiceInterface {
         return personas.stream()
                 .filter(persona -> persona.getDNI().equalsIgnoreCase(dni))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new PersonaNotFoundException(dni));
     }
 
 
@@ -60,7 +62,7 @@ public class UserService implements UserServiceInterface {
                 return updatedPersona;
             }
         }
-        return null;
+        throw new PersonaNotFoundException(dni);
     }
 
     /**
@@ -79,7 +81,7 @@ public class UserService implements UserServiceInterface {
                 return persona;
             }
         }
-        return null;
+        throw new PersonaNotFoundException(dni);
     }
 
     /**
@@ -91,7 +93,7 @@ public class UserService implements UserServiceInterface {
     @Override
     public Persona createUser(Persona persona) {
         if (users.containsKey(persona.getDNI())) {
-            return null; // Handle conflict in controller
+            throw new DuplicatePersonaException(persona.getDNI());
         }
         users.put(persona.getDNI(), persona);
         return persona;

@@ -1,5 +1,7 @@
-package com.futurespace.exercise.user;
+package com.futurespace.exercise.user.controller;
 
+import com.futurespace.exercise.user.model.Persona;
+import com.futurespace.exercise.user.service.UserServiceInterface;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

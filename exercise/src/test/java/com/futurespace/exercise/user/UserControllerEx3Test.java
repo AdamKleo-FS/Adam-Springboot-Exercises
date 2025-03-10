@@ -1,6 +1,9 @@
 package com.futurespace.exercise.user;
 
 import com.futurespace.exercise.exception.PersonaNotFoundException;
+import com.futurespace.exercise.user.controller.UserControllerEx3;
+import com.futurespace.exercise.user.model.Persona;
+import com.futurespace.exercise.user.service.UserServiceInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

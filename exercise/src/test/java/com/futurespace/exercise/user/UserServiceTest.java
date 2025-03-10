@@ -2,6 +2,8 @@ package com.futurespace.exercise.user;
 
 import com.futurespace.exercise.exception.DuplicatePersonaException;
 import com.futurespace.exercise.exception.PersonaNotFoundException;
+import com.futurespace.exercise.user.model.Persona;
+import com.futurespace.exercise.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

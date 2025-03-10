@@ -1,5 +1,7 @@
-package com.futurespace.exercise.user;
+package com.futurespace.exercise.user.controller;
 
+import com.futurespace.exercise.user.model.Persona;
+import com.futurespace.exercise.user.service.UserServiceInterface;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +25,21 @@ public class UserControllerEx3 {
     @GetMapping("/{dni}")
     public ResponseEntity<Persona> getPersonaByDni(@PathVariable String dni) {
         Persona persona = userService.getPersonaByDni(dni);
+        return new ResponseEntity<>(persona, HttpStatus.OK);
+
+        /*
+        * no point in having this because the service already returns an error.
+        * The type of error returned by the service and below are different
+        * Look into this in the future
         if (persona != null) {
             // Devolver status OK si encontramos el usuario
             return new ResponseEntity<>(persona, HttpStatus.OK);
         }
         // Devolver status NOT FOUND si no se encuentra
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         */
+
+
     }
 
     /*******************************
@@ -40,12 +51,19 @@ public class UserControllerEx3 {
             @Valid @RequestBody Persona updatedPersona) {
         // UserDetailsModel para que podamos validar la entrada.
         Persona persona = userService.updatePersona(dni, updatedPersona);
+        return new ResponseEntity<>(persona, HttpStatus.OK);
+
+        /*
+         * no point in having this because the service already returns an error.
+         * The type of error returned by the service and below are different
+         * Look into this in the future
         if (persona != null) {
             // Devolver status OK si encontramos el usuario
             return new ResponseEntity<>(persona, HttpStatus.OK);
         }
         // Devolver status NOT FOUND si no se encuentra
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         */
     }
 
 
@@ -55,11 +73,18 @@ public class UserControllerEx3 {
     @DeleteMapping("/{dni}")
     public ResponseEntity<Persona> deletePersonaByDni(@PathVariable String dni) {
         Persona persona = userService.deletePersona(dni);
+        return new ResponseEntity<>(persona, HttpStatus.OK);
+
+        /*
+         * no point in having this because the service already returns an error.
+         * The type of error returned by the service and below are different
+         * Look into this in the future
         if (persona != null) {
             // Devolver status OK si encontramos el usuario
             return new ResponseEntity<>(persona, HttpStatus.OK);
         }
         // Devolver status NOT FOUND si no se encuentra
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         */
     }
 }

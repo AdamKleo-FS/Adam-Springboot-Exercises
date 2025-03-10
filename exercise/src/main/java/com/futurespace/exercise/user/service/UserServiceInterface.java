@@ -1,5 +1,7 @@
-package com.futurespace.exercise.user;
+package com.futurespace.exercise.user.service;
 
+
+import com.futurespace.exercise.user.model.Persona;
 
 public interface UserServiceInterface {
     Persona getPersonaByDni(String dni);

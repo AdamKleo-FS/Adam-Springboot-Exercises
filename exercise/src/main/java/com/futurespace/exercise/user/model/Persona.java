@@ -1,4 +1,4 @@
-package com.futurespace.exercise.user;
+package com.futurespace.exercise.user.model;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;

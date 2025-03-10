@@ -1,7 +1,8 @@
-package com.futurespace.exercise.user;
+package com.futurespace.exercise.user.service;
 
 import com.futurespace.exercise.exception.DuplicatePersonaException;
 import com.futurespace.exercise.exception.PersonaNotFoundException;
+import com.futurespace.exercise.user.model.Persona;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

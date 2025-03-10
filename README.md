@@ -3,8 +3,7 @@
 **Resumen PDF:** [Resumen.pdf](./resumen.pdf)  
 **Capturas:** En el fichero `capturas`.
 
-## Posibles Mejoras
-- Unit tests
+
 
 ## Implementación de los Ejercicios
 - **Ejercicios 1 y 2** están implementados en `UserController12`.
